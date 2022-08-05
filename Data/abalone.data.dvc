@@ -1,0 +1,4 @@
+outs:
+- md5: a769fd0119787cac09158fe08971e480
+  size: 191873
+  path: abalone.data

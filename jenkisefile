@@ -1,0 +1,62 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Train model') {
+            steps {
+                sh '''
+                    cd /home/simon70/Projects/MLOps_demo/Training
+                    echo `pwd`
+                    source /home/simon70/Notebooks/py-envs/venv1/bin/activate
+                    echo `which python`
+                    python /home/simon70/Projects/MLOps_demo/Training/train.py
+                   '''
+            }
+        }
+        
+        stage('save model to BentoML local store') {
+            steps {
+                sh '''
+                    bash /home/simon70/Projects/MLOps_demo/backup_models.sh
+                   '''
+            }
+        }
+        
+        stage('Test model') {
+            steps {
+                sh '''
+                    cd /home/simon70/Projects/MLOps_demo/Testing_performance
+                    echo `pwd`
+                    source /home/simon70/Notebooks/py-envs/venv1/bin/activate
+                    echo `which python`
+                    python  /home/simon70/Projects/MLOps_demo/Testing_performance/test_model.py
+                   '''
+            }
+        }
+        
+        stage('Dockerizing Model with BentoML ') {
+            steps {
+                sh '''
+                    echo 'Ciao' 
+                    cd /home/simon70/Projects/MLOps_demo/Containerizing_Mode
+                    echo `pwd`
+                    bash /home/simon70/Projects/MLOps_demo/Containerizing_Mode/Model_abalone_containerizing.sh
+                   '''
+            }
+        }
+      
+        stage('Push Image to Private Registry') {
+            steps {
+                sh '''
+                    cd /home/simon70/Projects/MLOps_demo/Containerizing_Mode
+                    echo `pwd`
+                    source /home/simon70/Notebooks/py-envs/venv1/bin/activate
+                    bash /home/simon70/Projects/MLOps_demo/Containerizing_Mode/pushdocker_latest.sh
+                   '''
+            }
+        }
+        
+    }
+    
+}
+

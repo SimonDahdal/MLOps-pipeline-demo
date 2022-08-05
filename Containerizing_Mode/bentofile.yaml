@@ -1,0 +1,11 @@
+service: "monitoring_ml_model:service"
+labels:
+    owner: Simon
+    stage: dev
+
+include:
+- "*.py"
+#python:
+#    packages:
+#    - scikit-learn
+#    - numpy

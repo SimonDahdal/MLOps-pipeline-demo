@@ -1,0 +1,3 @@
+towerwatch on server to update model when a newer version is available
+
+docker pull localhost:5001/abalone_regressor_tree:latest

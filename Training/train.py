@@ -15,7 +15,7 @@ from sklearn.model_selection import train_test_split
 column_names = ["sex", "length", "diameter", "height", "whole weight", 
                 "shucked weight", "viscera weight", "shell weight", "rings"]
 
-DATA_FILE = "/home/simon70/Projects/MLOps_demo/Data/abalone.data"
+DATA_FILE = "../Data/abalone.data"
 
 data = pd.read_csv(DATA_FILE, names=column_names)
 print("Number of samples: %d" % len(data))

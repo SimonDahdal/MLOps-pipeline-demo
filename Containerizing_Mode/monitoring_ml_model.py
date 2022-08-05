@@ -4,13 +4,7 @@ import bentoml
 from bentoml.io import NumpyNdarray
 
 
-# In[16]:
-
-
 BENTO_MODEL_TAG = "abalone_regressor_tree:latest"
-
-# In[20]:
-
 
 regressor = bentoml.sklearn.get(BENTO_MODEL_TAG).to_runner()
 

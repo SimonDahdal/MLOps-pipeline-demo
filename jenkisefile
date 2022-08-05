@@ -5,11 +5,11 @@ pipeline {
         stage('Train model') {
             steps {
                 sh '''
-                    cd /home/simon70/Projects/MLOps_demo/Training
+                    source "$HOME_USER/Notebooks/py-envs/venv1/bin/activate"
+                    cd $HOME_USER/Projects/MLOps_demo/Training
                     echo `pwd`
-                    source /home/simon70/Notebooks/py-envs/venv1/bin/activate
                     echo `which python`
-                    python /home/simon70/Projects/MLOps_demo/Training/train.py
+                    python $HOME_USER/Projects/MLOps_demo/Training/train.py
                    '''
             }
         }
@@ -17,7 +17,7 @@ pipeline {
         stage('save model to BentoML local store') {
             steps {
                 sh '''
-                    bash /home/simon70/Projects/MLOps_demo/backup_models.sh
+                    bash $HOME_USER/Projects/MLOps_demo/backup_models.sh
                    '''
             }
         }
@@ -25,11 +25,11 @@ pipeline {
         stage('Test model') {
             steps {
                 sh '''
-                    cd /home/simon70/Projects/MLOps_demo/Testing_performance
+                    source $HOME_USER/Notebooks/py-envs/venv1/bin/activate
+                    cd $HOME_USER/Projects/MLOps_demo/Testing_performance
                     echo `pwd`
-                    source /home/simon70/Notebooks/py-envs/venv1/bin/activate
                     echo `which python`
-                    python  /home/simon70/Projects/MLOps_demo/Testing_performance/test_model.py
+                    python  $HOME_USER/Projects/MLOps_demo/Testing_performance/test_model.py
                    '''
             }
         }
@@ -38,9 +38,9 @@ pipeline {
             steps {
                 sh '''
                     echo 'Ciao' 
-                    cd /home/simon70/Projects/MLOps_demo/Containerizing_Mode
+                    cd $HOME_USER/Projects/MLOps_demo/Containerizing_Mode
                     echo `pwd`
-                    bash /home/simon70/Projects/MLOps_demo/Containerizing_Mode/Model_abalone_containerizing.sh
+                    bash $HOME_USER/Projects/MLOps_demo/Containerizing_Mode/Model_abalone_containerizing.sh
                    '''
             }
         }
@@ -48,10 +48,10 @@ pipeline {
         stage('Push Image to Private Registry') {
             steps {
                 sh '''
-                    cd /home/simon70/Projects/MLOps_demo/Containerizing_Mode
+                    source $HOME_USER/Notebooks/py-envs/venv1/bin/activate
+                    cd $HOME_USER/Projects/MLOps_demo/Containerizing_Mode
                     echo `pwd`
-                    source /home/simon70/Notebooks/py-envs/venv1/bin/activate
-                    bash /home/simon70/Projects/MLOps_demo/Containerizing_Mode/pushdocker_latest.sh
+                    bash $HOME_USER/Projects/MLOps_demo/Containerizing_Mode/pushdocker_latest.sh
                    '''
             }
         }

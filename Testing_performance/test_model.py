@@ -20,10 +20,7 @@ def run_experiment(model, X_test, y_test):
 
 
 def main():
-#    filename = 'finalized_abalone_model.sav'
-#    model = pickle.load(open(filename, 'rb'))    
 
-    #model = bentoml.sklearn.get("abalone_regressor_tree:latest").to_runner()
     model = bentoml.sklearn.load_model("abalone_regressor_tree:latest")
     
     print(model)    
